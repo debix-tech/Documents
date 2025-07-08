@@ -1,0 +1,19 @@
+/dts-v1/;
+/plugin/;
+
+#include "imx8mp-pinfunc.h"
+
+&pwm2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm2>;	
+	status = "okay";
+};
+
+&iomuxc {
+	pinctrl_pwm2: pwm2grp {
+		fsl,pins = <
+			MX8MP_IOMUXC_GPIO1_IO13__PWM2_OUT		0x116
+		>;
+	};
+};
+

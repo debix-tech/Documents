@@ -1,0 +1,21 @@
+/dts-v1/;
+/plugin/;
+
+#include "imx8mp-pinfunc.h"
+
+&uart3{
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart3>;
+	status = "okay";
+};
+
+&iomuxc {
+
+	pinctrl_uart3: uart3grp {
+		fsl,pins = <
+			MX8MP_IOMUXC_UART3_RXD__UART3_DCE_RX		0x49
+			MX8MP_IOMUXC_UART3_TXD__UART3_DCE_TX		0x49
+		>;
+	};
+};
+

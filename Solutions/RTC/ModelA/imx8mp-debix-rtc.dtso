@@ -1,0 +1,80 @@
+/dts-v1/;
+/plugin/;
+
+#include "imx8mp-pinfunc.h"
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+
+
+&i2c4 {
+	clock-frequency = <50000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_i2c4>;
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	
+	eeprom1: eeprom@50 {
+		compatible = "atmel,24c02";
+		reg = <0x50>;
+		pagesize = <16>;
+	};
+	
+	hym8563: hym8563@51 {
+		compatible = "haoyu,hym8563";
+		reg = <0x51>;
+		#clock-cells = <0>;
+		clock-frequency = <32768>;
+		clock-output-names = "xin32k";
+		init_date="2022/04/12";
+		interrupt-parent = <&gpio2>;
+		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
+		
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_rtc_int>;
+	};
+	ads1115: ads1115@48 {
+		 compatible = "ti,ads1115";
+		 status = "okay";
+		 #address-cells = <1>;
+		 #size-cells = <0>;
+		 reg = <0x48>;
+
+		 channel@4 {
+			 reg = <4>;
+			 ti,gain = <1>;
+			 ti,datarate = <4>;
+		 };
+		 channel@5 {
+			 reg = <5>;
+			 ti,gain = <1>;
+			 ti,datarate = <4>;
+		 };
+		 channel@3 {
+			 reg = <3>;
+			 ti,gain = <1>;
+			 ti,datarate = <4>;
+		 };
+		 channel@6 {
+			 reg = <6>;
+			 ti,gain = <1>;
+			 ti,datarate = <4>;
+		 };
+
+		 channel@7 {
+			 reg = <7>;
+			 ti,gain = <1>;
+			 ti,datarate = <4>;
+		 };
+	 };
+
+};
+
+&iomuxc {
+	pinctrl_i2c4: i2c4grp {
+		fsl,pins = <
+			MX8MP_IOMUXC_I2C4_SCL__I2C4_SCL		0x400001c3
+			MX8MP_IOMUXC_I2C4_SDA__I2C4_SDA		0x400001c3
+		>;
+	};
+};
+

@@ -1,0 +1,23 @@
+/dts-v1/;
+/plugin/;
+
+#include "imx8mp-pinfunc.h"
+
+&flexcan1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_flexcan1>;
+	//xceiver-supply = <&reg_can1_stby>;
+	status = "okay";
+};
+
+&iomuxc {
+	pinctrl_flexcan1: flexcan1grp {
+		fsl,pins = <
+			//MX8MP_IOMUXC_SPDIF_RX__CAN1_RX          0x154
+			//MX8MP_IOMUXC_SPDIF_TX__CAN1_TX          0x154
+			MX8MP_IOMUXC_SAI5_RXD2__CAN1_RX          0x154
+			MX8MP_IOMUXC_SAI5_RXD1__CAN1_TX          0x154
+		>;
+	};
+};
+
