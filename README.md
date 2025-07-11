@@ -8,7 +8,7 @@ Welcome to the DEBIX Technical Documentation Center! This repository contains co
 |[Examples](./Examples/)|Product application cases and development samples|
 |[FAQ](./FAQ/)  |Frequently Asked Questions library|
 |[Solutions](./Solutions/)|Professional solution collections|
-|[Specification](./Specification/) |Product technical specification documents|
+|[Products](./Products/) |Product technical specification documents|
 
 
 *All documentation will be continuously updated with product iterations*  

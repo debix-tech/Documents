@@ -1,0 +1,24 @@
+[submodule "Products/N-Series/SBC/DEBIX_Model_A"]
+	path = Products/N-Series/SBC/DEBIX_Model_A
+	url = https://github.com/debix-tech/DEBIX_Model_A.git
+[submodule "Products/N-Series/SBC/DEBIX_Model_B"]
+	path = Products/N-Series/SBC/DEBIX_Model_B
+	url = https://github.com/debix-tech/debix-model-b.git
+[submodule "Products/N-Series/SBC/DEBIX_Model_C"]
+	path = Products/N-Series/SBC/DEBIX_Model_C
+	url = https://github.com/debix-tech/debix-model-c.git
+[submodule "Products/N-Series/SBC/DEBIX_Infinity"]
+	path = Products/N-Series/SBC/DEBIX_Infinity
+	url = https://github.com/debix-tech/debix-infinity.git
+[submodule "Products/N-Series/SOM/DEBIX-SOM-A"]
+	path = Products/N-Series/SOM/DEBIX-SOM-A
+	url = https://github.com/debix-tech/debix-som-a.git
+[submodule "Products/N-Series/SOM/DEBIX-SOM-A-IO-Board"]
+	path = Products/N-Series/SOM/DEBIX-SOM-A-IO-Board
+	url = https://github.com/debix-tech/debix-som-a-io-board.git
+[submodule "Products/N-Series/SOM/DEBIX-SOM-B"]
+	path = Products/N-Series/SOM/DEBIX-SOM-B
+	url = https://github.com/debix-tech/debix-som-b.git
+[submodule "Products/N-Series/SOM/DEBIX-SOM-C"]
+	path = Products/N-Series/SOM/DEBIX-SOM-C
+	url = https://github.com/debix-tech/debix-som-c.git
