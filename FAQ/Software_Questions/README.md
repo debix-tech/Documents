@@ -16,11 +16,11 @@ In general, you need to see if it supports programming for Armv6, Armv7, or Armv
 You can share files with windows computers via samba or ftp.
 
 **6. How to run the program at startup?**  
-After Linux is loaded, it will initialize the hardware and device drivers, and then run the first process init. Init continues the boot process according to the configuration file and starts other processes. Usually, the modification is placed in script files in the following directory:   
+After Linux is loaded, it will initialize the hardware and device drivers, and then run the first process `init`. `Init` continues the boot process according to the configuration file and starts other processes. Usually, the modification is placed in script files in the following directory:   
      `/etc/rc` or   
      `/etc/rc.d` or   
      `/etc/rc?.d`  
-You can make init start other programs automatically, such as editing `/etc/rc.d/rc.local` file (this file is usually the last script started by the system), adding a line "xinit" or "startx" at the end of the file and entering X-Window directly after booting up.
+You can make `init` start other programs automatically, such as editing `/etc/rc.d/rc.local` file (this file is usually the last script started by the system), adding a line "xinit" or "startx" at the end of the file and entering X-Window directly after booting up.
 
 
 **7. How to run the program at a specific time?**  
@@ -99,7 +99,7 @@ Modify the attribute value of `XKBLAYOUT` in `/etc/default/keyboard`, the curren
 
 **23. How to configure DEBIX’s WiFi and SSH without display device and keyboard?**  
 Read the SD card which has finished flashing with a computer. Create a new `wpa_supplicant.conf` file in the `boot` partition (DEBIX's `/boot` directory), fill in the content according to the following reference format and save the `wpa_supplicant.conf` file.  
--|-
+/|/
 ---|---
 1|country=CN
 2|ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -130,7 +130,7 @@ Instructions and configuration examples of WiFi with different security:
 <br>
 
 If your WiFi has no password:  
--|-
+/|/
 ---|---
 1|network={
 2|ssid="name of your wireless network（ssid）"
@@ -140,7 +140,7 @@ If your WiFi has no password:
 <br>
 
 If your WiFi uses WEP encryption:
--|-
+/|/
 ---|---
 1|network={
 2|ssid="name of your wireless network（ssid）"
@@ -151,7 +151,7 @@ If your WiFi uses WEP encryption:
 <br>
  
 If your WiFi uses WPA/WPA2 encryption:
--|-
+/|/
 ---|---
 1|network={
 2|ssid="name of your wireless network（ssid）"
