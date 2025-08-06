@@ -1,48 +1,35 @@
-Debix运行.net应用实例
+### Debix Runs .NET Application Example
 
+🧩 **Step 1: Go to the official website to download the ARM64 version of .NET SDK and Runtime**  
 
+🔗 Official website:  
+👉 https://dotnet.microsoft.com/zh-cn/download/dotnet/8.0  
 
-🧩 第 1 步：前往官网，下载 ARM64 版 .NET SDK 与运行时
+Click:  
+- **.NET SDK 8.x latest version (arm64 / Linux)**  
+- If you only need to run applications, you can also download **.NET Runtime**  
 
-🔗 官网地址：
+![image-20250630105353872](./image-20250630105353872.png)  
 
-👉 https://dotnet.microsoft.com/zh-cn/download/dotnet/8.0
-
-点击：
-
-- **.NET SDK 8.x 最新版本（arm64 / Linux）**
-- 如需仅运行应用，也可下载 **.NET Runtime**
-
-![image-20250630105353872](./image-20250630105353872.png)
-
-
-
-📁 第 2 步：将压缩包拷贝到 DEBIX
-
-使用 SCP 或 U 盘方式将你下载的文件（如 `.tar.gz`）传到 DEBIX，例如：
-
+📁 **Step 2: Copy the compressed package to DEBIX**  
+Use SCP or a USB drive to transfer your downloaded file (e.g., `.tar.gz`) to DEBIX, for example:  
 ```shell
 scp dotnet-sdk-8.0.411-linux-arm64.tar.gz debix@192.168.x.x:~
-```
+```  
 
-📂 第 3 步：创建目录并解压
-
+📂 **Step 3: Create a directory and extract**  
 ```
 mkdir -p $HOME/dotnet
 tar -xzvf dotnet-sdk-8.0.411-linux-arm64.tar.gz -C $HOME/dotnet
-```
-
-进入dotnet目录查看版本
-
+```  
+Enter the dotnet directory to check the version:  
 ```
 root@DebixSomB:~/dotnet# ./dotnet --version
 8.0.411
-```
+```  
 
-✏️ 第 4步：编写 HelloWorld 示例
-
-创建 `HelloWorld.csproj`：
-
+✏️ **Step 4: Write the HelloWorld example**  
+Create `HelloWorld.csproj`:  
 ```c
 root@DebixSomB:~/dotnet# vim HelloWorld.csproj
 <Project Sdk="Microsoft.NET.Sdk">
@@ -55,11 +42,8 @@ root@DebixSomB:~/dotnet# vim HelloWorld.csproj
   </PropertyGroup>
 
 </Project>
-
-```
-
-创建 `Program.cs`：
-
+```  
+Create `Program.cs`:  
 ```c
 root@DebixSomB:~/dotnet# vim Program.cs
 using System;
@@ -71,11 +55,9 @@ class Program
         Console.WriteLine("Hello, DEBIX!");
     }
 }
+```  
 
-```
-
-🛠️ 第 5步：编译项目
-
+🛠️ **Step 5: Compile the project**  
 ```shell
 root@DebixSomB:~/dotnet# ./dotnet build
 
@@ -90,15 +72,10 @@ SDK Version: 8.0.411
 Build succeeded.
     0 Warning(s)
     0 Error(s)
+```  
 
-
-```
-
-▶️ 第 6 步：运行程序
-
+▶️ **Step 6: Run the program**  
 ```shell
 root@DebixSomB:~/dotnet# ./dotnet run
 Hello, DEBIX!
-
 ```
-

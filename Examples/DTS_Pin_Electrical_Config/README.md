@@ -1,58 +1,49 @@
-设备树引脚电气属性参数配置
+# ⚡ Device Tree Pin Electrical Property Configuration  
 
+Below explains how to modify pin electrical property parameters:  
 
+📌 1. **Pin Description in Device Tree**  
+In Linux, **pin configuration is typically defined in the Device Tree**. This informs the kernel about:  
+- Each pin's function (GPIO, I2C, UART, SPI, etc.)  
+- Specific electrical characteristics (pull-up/pull-down, drive strength, etc.)  
 
-下面介绍如何修改引脚电器属性参数：
+Example:  
+```dts
+MX8MP_IOMUXC_GPIO1_IO01__PWM1_OUT   // Pin multiplexing (pin name + function)  
+0x116                                 // Configuration parameters (drive strength, pull-up/down, OD, etc.)  
+```  
+![image-20250630084826522](./image-20250630084826522.png)  
 
-📌1.设备树种对引脚的描述
+> DEBIX pin multiplexing macros can be found in:  
+> `arch/arm64/boot/dts/freescale/imx8mp-pinfunc.h`
 
-在 Linux 中，**引脚配置通常在设备树（Device Tree）中完成**。这告诉内核每个引脚的用途（GPIO、I2C、UART、SPI 等）以及具体电气特性（如上拉/下拉、驱动能力等）。
+---
 
-![image-20250630084826522](./image-20250630084826522.png)
+🛠 2. **Configuring Pin Properties Using NXP Official Tools**  
+Steps to set DEBIX pin electrical properties:  
 
-`MX8MP_IOMUXC_GPIO1_IO01__PWM1_OUT`    引脚功能复用（引脚名 + 功能）
+* a. **Launch Config Tools for i.MX v13**  
+  File → New  
+  Download: [Config Tools for i.MX](https://www.nxp.com/design/design-center/development-boards-and-designs/i-mx-evaluation-and-development-boards/config-tools-for-i-mx-applications-processors:CONFIG-TOOLS-IMX)  
+  ![image-20250630085657799](./image-20250630085657799.png)  
 
-`0x116`       配置参数（驱动强度、上拉/下拉、OD 等）
+* b. **Create New Configuration** → Next  
+  ![image-20250630085803635](./image-20250630085803635.png)  
 
-DEBIX引脚的复用使用到的宏可以在`arch\arm64\boot\dts\freescale\imx8mp-pinfunc.h`里面找到。
+* c. **Select DEBIX Processor** → Finish  
+  ![image-20250630085908489](./image-20250630085908489.png)  
 
+* d. **Configure Electrical Properties** (Example: GPIO1_IO12)  
+  ![image-20250630085959454](./image-20250630085959454.png)  
+  ![image-20250630090055809](./image-20250630090055809.png)  
 
+  Key configurations:  
+  - **🧲 Pull-up / Pull-down**  
+  - **🔌 Open Drain**  
 
-🛠2.使用NXP官方软件配置引脚属性
+* e. **Generate Code**  
+  Click "Generate Code" on the right  
+  ![image-20250630090301826](./image-20250630090301826.png)  
 
-DEBIX引脚的电气属性参数设置方法如下：
-
-* a.打开官方配置工具Config Tools for i.MX v13，文件->新建
-* 下载链接https://www.nxp.com/design/design-center/development-boards-and-designs/i-mx-evaluation-and-development-boards/config-tools-for-i-mx-applications-processors:CONFIG-TOOLS-IMX
-
-![image-20250630085657799](./image-20250630085657799.png)
-
-* b.创建新配置，下一步
-
-
-
-![image-20250630085803635](./image-20250630085803635.png)
-
-* c.选择DEBIX的处理器，完成
-
-![image-20250630085908489](./image-20250630085908489.png)
-
-* d.以配置GPIO1_IO12引脚电器属性为例
-
-![image-20250630085959454](./image-20250630085959454.png)
-
-![image-20250630090055809](./image-20250630090055809.png)
-
-这里有两个比较关键的配置是:
-
-**🧲 Pull-up / Pull-down（上下拉）**
-
-**🔌 Open Drain（开漏输出）**
-
-* e. 点击右侧生成代码
-
-![image-20250630090301826](./image-20250630090301826.png)
-
-可以看到引脚复用关系及电器属性描述如下
-
-![image-20250630090349143](./image-20250630090349143.png)
+  Pin multiplexing and electrical properties description:  
+  ![image-20250630090349143](./image-20250630090349143.png)

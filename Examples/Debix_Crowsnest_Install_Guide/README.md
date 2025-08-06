@@ -1,8 +1,8 @@
-### 一、安装crowsnest
-###### 1、网络安装
-A. git clone https://github.com/mainsail-crew/crowsnest.git
-B. cd crosnest
-C. 修改文件：resources/crowsnest.conf
+### 1. Installing crowsnest
+###### 1. Network Installation
+A. git clone https://github.com/mainsail-crew/crowsnest.git  
+B. cd crosnest  
+C. Modify the file: resources/crowsnest.conf  
 ```
 --- a/resources/crowsnest.conf
 +++ b/resources/crowsnest.conf
@@ -30,19 +30,21 @@ C. 修改文件：resources/crowsnest.conf
 
 ```
 D. sudo make install  
-   安装完毕后重启系统
+   Restart the system after the installation is complete.
 
-###### 2、本地安装
-A. 拷贝 crowsnest-v4.1.14-1-gda74635.tar.bz2 到Model A
+###### 2. Local Installation
+A. Copy crowsnest-v4.1.14-1-gda74635.tar.bz2 to Model A  
 
 B. sudo make install  
-   安装完毕后重启系统
-  
-### 二、查看crowsnest服务
-sudo systemctl status crowsnest.service 
-服务正常启动则配置完成。如服务启动失败可查看log信息：cat ~/printer_data/logs/crowsnest.log
+   Restart the system after the installation is complete.  
 
-*注：可通过tools/dev-helper.sh -c 查看摄像头是否支持MJPG编码*
 
-### 三、通过pc机查看摄像头
-例如DEBIX Model A的ip为 192.168.2.106，则打开windows浏览器输入：http://192.168.2.106:8554/webcam/?action=stream
+### 2. Checking the crowsnest Service
+sudo systemctl status crowsnest.service  
+If the service starts normally, the configuration is complete. If the service fails to start, you can check the log information: cat ~/printer_data/logs/crowsnest.log  
+
+*Note: You can check if the camera supports MJPG encoding via tools/dev-helper.sh -c*  
+
+
+### 3. Viewing the Camera via PC
+For example, if the IP address of DEBIX Model A is 192.168.2.106, open a Windows browser and enter: http://192.168.2.106:8554/webcam/?action=stream

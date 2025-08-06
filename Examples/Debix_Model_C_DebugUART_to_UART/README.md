@@ -1,43 +1,31 @@
-🔄 将 DEBIX Model C 的 UART Debug 口改为普通 UART 使用
+### Converting DEBIX Model C's UART Debug Port to General-Purpose UART  
 
-本教程指导你如何关闭默认的串口调试功能（Console），将 UART（如 LPUART1）变成一个用户可用的普通串口设备。
+This tutorial shows how to disable the default serial debug console and repurpose UART (e.g., LPUART1) as a standard serial device for user applications.  
 
-
-
-🧱 1️⃣ 修改 U-Boot：关闭串口控制台输出
-
-📁 编辑文件：
-
+🧱 **1️⃣ Modify U-Boot: Disable Serial Console Output**  
+📁 Edit the file:  
 ```
 include/configs/imx93_evk.h
+```  
+🔧 Change the original console parameter:  
+```c  
+"console=ttyLP0,115200 earlycon\0"  
+```  
+✅ Modify to:  
+```c  
+"console=tty0,115200 earlycon\0"  
+```  
+📌 **Explanation**:  
+- `ttyLP0` is the default serial console  
+- Changing to `tty0` redirects console output to **graphical terminal or null terminal**, freeing `ttyLP0` for user applications  
+
+🧬 **2️⃣ Modify Linux Kernel: Release UART Occupancy in DTS**  
+📁 Edit DTS file:  
+```
+arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
 ```
 
-🔧 将原始控制台参数：
-
-```c
-
-    "console=ttyLP0,115200 earlycon\0"
-
+✅ Comment out:  
+```dts  
+stdout-path = &lpuart1;  
 ```
-
-✅ 修改为：
-
-```c
-
-    "console=tty0,115200 earlycon\0"
-
-```
-
-📌 说明：
-
-- `ttyLP0` 是默认的串口 Console；
-- 修改为 `tty0` 表示将 Console 输出重定向到 **图形终端或空终端**，释放 `ttyLP0` 给用户应用使用。
-
-
-
-🧬 2️⃣ 修改 Linux Kernel：释放 DTS 中串口占用
-
-修改dts文件`arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts`
-
-注释掉`stdout-path = &lpuart1;`
-

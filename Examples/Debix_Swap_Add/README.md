@@ -1,9 +1,6 @@
-📦debix增加swap分区方法
+## 📦 Add a Swap Partition on DEBIX  
 
-
-
-✅ 步骤 1：查看当前内存与 Swap 使用情况
-
+### ✅ Step 1: Check Current Memory and Swap Usage  
 ```shell
 free -m 
     total        used        free      shared  buff/cache   available
@@ -11,25 +8,18 @@ Mem:         1947        808         368       11         771        1039
 Swap:         127         39           88
 ```
 
-✅ 步骤 2：创建一个 1GB 的 Swap 文件
-
+### ✅ Step 2: Create a 1GB Swap File  
 ```shell
 dd if=/dev/zero of=/swapfile1 bs=1024 count=1048576
 1048576+0 records in
 1048576+0 records out
 1073741824 bytes (1.1 GB, 1.0 GiB) copied, 30.0344 s, 35.8 MB/s
 ```
+**Note**:  
+- Creates a **1GB** file `/swapfile1` as new swap space  
+- Adjust `count` value for different swap sizes  
 
-说明：
-
-- 该命令会生成一个大小为 **1GB** 的文件 `/swapfile1`，作为新的交换空间。
-
-- 如果你有其他内存大小，可根据需求调整 `count`。
-
-  
-
-✅ 步骤 3：格式化为 Swap 类型并设置权限
-
+### ✅ Step 3: Format as Swap and Set Permissions  
 ```shell
 sudo mkswap /swapfile1
 mkswap: /swapfile1: insecure permissions 0644, fix with: chmod 0600 /swapfile1
@@ -39,51 +29,41 @@ no label, UUID=0845fdc8-a7c2-4e39-9af6-4d6cd00b900c
 sudo chmod 600 /swapfile1
 ```
 
-
-
-✅ 步骤 4：立即启用 Swap 文件，输入命令
-
+### ✅ Step 4: Activate Swap File Immediately  
 ```shell
 swapon /swapfile1
 swapon: /swapfile1: insecure permissions 0644, 0600 suggested.
 ```
 
-
-
-✅ 步骤 5：让 Swap 文件开机自动挂载
-
-编辑` /etc/fstab`文件，并增加如下代码
-
+### ✅ Step 5: Enable Automatic Swap Mount at Boot  
+Edit `/etc/fstab` and add:  
 ```shell
 /swapfile1 swap swap defaults 0 0
 ```
 
-
-
-✅ 步骤 6：优化 Swap 使用策略
-
-编辑`/etc/sysctl.conf`文件，并增加如下代码
-
+### ✅ Step 6: Optimize Swap Usage Policy  
+Edit `/etc/sysctl.conf` and add:  
 ```shell
 vm.swappiness=10
 ```
 
-### 🔧 参数含义：
+### 🔧 Parameter Explanation:  
+- `vm.swappiness` range: **0 to 100**  
+- Controls kernel's tendency to move memory pages to swap:  
 
-- `vm.swappiness` 的值范围是 **0 到 100**
-- 它表示内核在将内存页移到 swap 空间（虚拟内存）时的“积极程度”：
+| Value | Behavior                                                                 |
+|-------|--------------------------------------------------------------------------|
+| 0     | **Avoid swap** unless absolutely necessary (physical memory exhausted)  |
+| 10    | Minimal swap usage (prefers caching, uses swap under memory pressure)    |
+| 60    | Default: **Balanced** memory caching and swap usage                     |
+| 100   | **Aggressively use swap**, moving inactive pages to swap early          |
 
-| 值   | 行为解释                                            |
-| ---- | --------------------------------------------------- |
-| 0    | **尽量不使用 swap**，除非万不得已（物理内存快用完） |
-| 10   | 很少使用 swap，只在内存压力大时才使用（偏向缓存）   |
-| 60   | 默认值，**平衡内存缓存与 swap 使用**                |
-| 100  | **积极使用 swap**，尽早将不活跃页移到 swap          |
+### ✅ Step 7: Reboot System  
+```shell
+reboot
+```
 
-7.重启系统，输入命令`reboot`
-
-8.查看swap分区大小， 输入命令
-
+### ✅ Step 8: Verify New Swap Partition  
 ```shell
 free -m
                total        used        free      shared  buff/cache   available
@@ -91,4 +71,4 @@ Mem:         1947         704         891       1         351        1163
 Swap:         1151           0        1151
 ```
 
-✅ **完成后，你的系统将具备 1GB 的新 Swap 分区，并在每次启动时自动挂载使用**
+✅ **Your system now has a 1GB swap partition that automatically mounts at boot**

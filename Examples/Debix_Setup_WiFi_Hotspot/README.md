@@ -1,88 +1,68 @@
-# 📶 DEBIX 设置 Wi-Fi 热点（AP 模式）
+## 📶 Setting Up DEBIX as a Wi-Fi Hotspot (AP Mode)
 
+### 🧾 Method 1: Command Line Operation (Recommended for Terminal Environment)
 
-
-## 🧾 方式一：命令行操作（推荐用于终端环境）
-
-🧑‍💻 1. 切换为 root 用户
-
+🧑‍💻 1. Switch to root user
 ```shell
 sudo su
 ```
 
-📡 2. 打开 Wi-Fi
-
+📡 2. Turn on Wi-Fi
 ```shell
 nmcli radio wifi on
 ```
 
-🛠️ 3. 创建 Wi-Fi 热点
-
+🛠️ 3. Create Wi-Fi hotspot
 ```shell
 nmcli dev wifi hotspot ifname wlan0 ssid debix_ap password "12345678"
 ```
 
-🔍 参数说明：
+🔍 Parameter explanation:
 
-| 参数                  | 含义                       |
-| --------------------- | -------------------------- |
-| `ifname wlan0`        | 指定热点使用的无线网卡名称 |
-| `ssid debix_ap`       | 设置热点名称（Wi-Fi 名称） |
-| `password "12345678"` | 设置热点密码（8~63 位）    |
-
-
+| Parameter             | Meaning                          |
+|-----------------------|----------------------------------|
+| `ifname wlan0`       | Specify wireless interface name  |
+| `ssid debix_ap`      | Set hotspot name (Wi-Fi SSID)    |
+| `password "12345678"`| Set hotspot password (8-63 chars)|
 
 ![image-20250630095240251](./image-20250630095240251.png)
 
-✅ **执行成功后，DEBIX 将变为热点，其他设备可连接该 Wi-Fi**
+✅ **After successful execution, DEBIX becomes a hotspot that other devices can connect to**
 
-🔎 4. 查看热点名称和密码
-
+🔎 4. View hotspot name and password
 ```shell
 nmcli dev wifi show-password
 ```
 
 ![image-20250630095454433](./image-20250630095454433.png)
 
-
-
-📊 5. 查看网络设备状态
-
+📊 5. Check network device status
 ```shell
 nmcli dev status
 ```
 
 ![image-20250630095522900](./image-20250630095522900.png)
 
-## 🖼️ 方式二：图形界面操作（适用于桌面系统）
+### 🖼️ Method 2: Graphical Interface Operation (For Desktop Systems)
 
-1️⃣ 打开 Wi-Fi 设置界面
-
-点击右上角系统托盘中的 Wi-Fi 图标，选择：
-
-> **"Turn on"** 开启无线网络
->  然后点击 **"Wi-Fi Settings"**
+1️⃣ Open Wi-Fi settings interface  
+Click the Wi-Fi icon in the system tray (top-right corner), then select:  
+> **"Turn on"** to enable wireless  
+> Then click **"Wi-Fi Settings"**  
 
 ![image-20250630095717847](./image-20250630095717847.png)
 
-2️⃣ 设置热点信息
-
-> 1. 点击右上角「⁝」菜单（三个点）
-> 2. 选择 **"Turn On Hotspot"**
-
-
+2️⃣ Set hotspot information  
+> 1. Click the "⁝" menu (three dots) in top-right corner  
+> 2. Select **"Turn On Hotspot"**  
 
 ![image-20250630095901680](./image-20250630095901680.png)
 
+3️⃣ Customize hotspot name and password  
+- Enter Wi-Fi name (SSID)  
+- Set password (8+ characters)  
+Click **"Turn On"** to create the hotspot.  
 
-
-3️⃣ 自定义热点名称与密码
-
-- 输入 Wi-Fi 名称（SSID）
-- 设置密码（8 位以上）
-
-点击 **"Turn On"** 即可创建热点。
-
-你可以在 **"Wi-Fi Settings" → "Hotspot"** 看到当前热点信息。
+You can view current hotspot information at **"Wi-Fi Settings" → "Hotspot"**.  
 
 ![image-20250630100019673](./image-20250630100019673.png)

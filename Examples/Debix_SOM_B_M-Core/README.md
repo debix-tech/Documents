@@ -1,51 +1,43 @@
-somB上面使用M核
+## 📶 Debugging and Development of the M33 Core on DEBIX SOMB  
 
-M33 核的两种工程调试开发，
+Two approaches for engineering debugging and development of the M33 core:  
 
-第一种方式是通过板子自带的固件进行开发，
+The first method uses the board's built-in firmware for development.  
+The second method leverages IAR Embedded Workbench to build portable FreeRTOS files for development.  
 
-第二种方式是使用 IAR Embedded Workbench 来构建可移植的 Freertos 文件进行开发
+---
 
+### ✅ A. On-board Firmware Debugging (Method 1)  
 
-
-✅ A. 使用板载固件调试（方式一）
-
-📦 1. 加载官方 M33 固件：
-
-在`/lib/firmware/`路径下提供了5个M核开发的固件，可以直接用来验证
-
+📦 1. **Load Official M33 Firmware**  
+The `/lib/firmware/` directory contains 5 M-core firmware files for direct validation:  
 ```shell
-echo /lib/firmware/imx93-11x11-evk_m33_TCM_rpmsg_lite_str_echo_rtos.elf  > /sys/class/remoteproc/remoteproc0/firmware
+echo /lib/firmware/imx93-11x11-evk_m33_TCM_rpmsg_lite_str_echo_rtos.elf > /sys/class/remoteproc/remoteproc0/firmware
 ```
 
-🚀 2. 启动 M33 核处理器
-
+🚀 2. **Start M33 Core Processor**  
 ```shell
 root@DebixSomB:/sys/class/remoteproc/remoteproc0# echo start > state
-....
+...
 [68352.323252] remoteproc remoteproc0: remote processor imx-rproc is now up
 ```
 
-此时还不能发送字符，还需要将驱动装好命令如下：
-
-🔌 3. 加载 RPMsg 通信驱动
-
+🔌 3. **Load RPMsg Communication Driver**  
+Character transmission requires driver installation:  
 ```shell
 modprobe imx_rpmsg_tty
-```
+```  
+This creates `/dev/ttyRPMSG30` in the dev directory.  
 
-此时就能看到目录/dev 下多了一个 `ttyRPMSG30`
-
-💬 4. 通过 A 核向 M33 核发送数据
-
+💬 4. **Send Data from A-core to M33 Core**  
 ```shell
 echo 1234 > /dev/ttyRPMSG30
 ```
 
-⚠️ 注意事项：避免串口冲突
+---
 
-如果 **M33 使用了 UART2**，你需要从 A 核设备树中禁用对应串口，否则双方会冲突！
-
+### ⚠️ Critical Note: Avoid UART Conflicts  
+If **M33 uses UART2**, disable the corresponding UART in the A-core device tree to prevent conflicts:  
 ```c
 diff --git a/arch/arm64/boot/dts/freescale/imx93-debix-SOMB.dts b/arch/arm64/boot/dts/freescale/imx93-debix-SOMB.dts
 index 903e06e75..a9cc27659 100755
@@ -84,6 +76,4 @@ index 903e06e75..a9cc27659 100755
 +       //              MX93_PAD_UART2_TXD__LPUART2_TX             0x31e
 +       //      >;
 +       // };
-
 ```
-

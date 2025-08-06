@@ -1,48 +1,42 @@
-🎨 DEBIX 开发板更换开机 Logo 教程（Model A 适用）
+### Changing the Boot Logo for DEBIX Boards (Applicable to DEBIX Model A)  
 
-✅ 步骤 1：下载 DEBIX 官方内核源码
-	代码网址：https://github.com/debix-tech
-📥 下载命令：
+✅ **Step 1: Download DEBIX’s official kernel source code**  
+Code repository: https://github.com/debix-tech  
+📥 Download command:  
+```shell  
+git clone --depth=1 https://github.com/debix-tech/linux-nxp-debix.git  
+```  
 
-```shell
-git clone --depth=1 https://github.com/debix-tech/linux-nxp-debix.git
-```
+✅ **Step 2: Prepare a new logo image (`.ppm` format)**  
+Command to convert PNG to PPM on Ubuntu 22.04:  
+```shell  
+pngtopnm <input.png> > <output.pnm>  
+```  
+Convert the image to 224 colors:  
+```shell  
+ppmquant 224 <input.pnm> > <output.pnm>  
+```  
+Convert the 224-color image to ASCII plain format:  
+```shell  
+pnmtoplainpnm <input.pnm> > <output.ppm>  
+```  
+Finally, verify the format using `file <name.ppm>`. The output should be:  
+`Netpbm image data, size = [width] x [height], pixmap, ASCII text`.  
 
-✅ 步骤 2：准备新的 Logo 图片（`.ppm` 格式）
-在ubuntu22.04系统上将png图片转换为ppm格式文件命令：
+✅ **Step 3: Replace the default logo file in the kernel**  
+Overwrite the default logo in the kernel source directory with your prepared file:  
+```shell  
+drivers/video/logo/logo_linux_clut224.ppm  
+```  
+Rename your prepared `logo.ppm` to `logo_linux_clut224.ppm` before replacement.  
 
-```shell
-pngtopnm <input.png> ><output.pnm>
-```
+⚠️ **Notes**:  
+- Filename **must** be: `logo_linux_clut224.ppm`  
+- Format **must** be ASCII PPM with ≤ 224 colors.  
 
-将图片转换成224色命令：
-
-```shell
-ppmquant 224 <input.pnm> > <output.pnm>
-```
-
-再将224色图片转换成ASCII 二进制文件，命令：
-
-```shell
-pnmtoplainpnm <input.pnm> > <output.ppm>
-```
-
-最后使用`file <name.ppm> `查看文件格式，文件格式为：`Netpbm image data, size = [宽] x [高], pixmap, ASCII text` 即可。
-
-✅ 步骤 3：替换内核中的默认 Logo 文件
-将你准备好的 logo 文件覆盖内核源代码目录中的默认 logo 文件：
-
-```shell
-drivers/video/logo/logo_linux_clut224.ppm
-```
-
-替换logo需将准备好的`logo.ppm`改名为`logo_linux_clut224.ppm`替换。
-
-⚠️ 注意：
-
-- 文件名必须为：`logo_linux_clut224.ppm`
-- 格式必须为 ASCII PPM，颜色不超过 224 色
-
-✅ 步骤 4：重新编译内核并替换镜像
-重新编译内核，命令：`make -j4`
-编译完成后在`arch/arm64/boot`目录下找到`Image`镜像文件，替换到TF卡中，重启debix即可。
+✅ **Step 4: Recompile the kernel and replace the image**  
+Recompile the kernel:  
+```shell  
+make -j4  
+```  
+After compilation, locate the `Image` file under `arch/arm64/boot`, replace it on the TF card, and reboot the DEBIX.
