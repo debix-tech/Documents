@@ -3,7 +3,7 @@
 🧩 **Step 1: Go to the official website to download the ARM64 version of .NET SDK and Runtime**  
 
 🔗 Official website:  
-👉 https://dotnet.microsoft.com/zh-cn/download/dotnet/8.0  
+👉 https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
 Click:  
 - **.NET SDK 8.x latest version (arm64 / Linux)**  
